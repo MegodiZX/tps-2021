@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1632349625 source:c:\users\megodi\desktop\tp_laboratorio_1\trabajopractico1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Funciones.h"
+
+1632348783 c:\users\megodi\desktop\tp_laboratorio_1\trabajopractico1\funciones.h
+
+1632347673 c:\users\megodi\desktop\tp_laboratorio_1\trabajopractico1\funciones.c
+	<stdio.h>
+
