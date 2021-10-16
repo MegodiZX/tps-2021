@@ -1,13 +1,6 @@
-/*
- * Menu.c
- *
- *  Created on: 12 oct. 2021
- *      Author: Megodi
- */
-
 #include "Empleados.h"
 #include "Menu.h"
-void menu(eEmpleado lista[],int tam)
+void menu(Employee list[],int tam)
 {
 	setbuf(stdout,NULL);
     int opcion;
@@ -25,14 +18,14 @@ void menu(eEmpleado lista[],int tam)
         {
             case 1:
                 {
-                    DarDeAltaEmpleado(lista,tam);
+                	addEmployees(list,tam);
                     control=0;
                 }break;
             case 2:
                 {
                     if(control==0)
                     {
-                        ModificarEmpleado(lista, tam);
+                        ModificarEmpleado(list, tam);
                     }else
                     {
                         MensajeError();
@@ -42,7 +35,7 @@ void menu(eEmpleado lista[],int tam)
                 {
                     if(control==0)
                     {
-                        DarDeBajaUnEmpleado(lista, tam);
+                        DarDeBajaUnEmpleado(list, tam);
                     }else
                     {
                         MensajeError();
@@ -53,7 +46,7 @@ void menu(eEmpleado lista[],int tam)
                 {
                     if(control==0)
                     {
-                        PuntoCuatro(lista,tam);
+                        PuntoCuatro(list,tam);
                     }else
                     {
                         MensajeError();

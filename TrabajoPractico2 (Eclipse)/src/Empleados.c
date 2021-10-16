@@ -1,21 +1,21 @@
 #include "Empleados.h"
-void InicializarEmpleados(eEmpleado lista[],int tam)
+void InitEmployees(Employee list[],int tam)
 {
     int i;
     for(i=0;i<tam;i++)
     {
-        lista[i].estado=LIBRE;
+    	list[i].isEmpty=LIBRE;
     }
 }//todos los estados a libre
 
-int BuscarLibre(eEmpleado lista[],int tam)
+int BuscarLibre(Employee list[],int tam)
 {
     int i;
     int posicionLibre;
     posicionLibre=-1;
     for(i=0;i<tam;i++)
     {
-        if(lista[i].estado==LIBRE)
+        if(list[i].isEmpty==LIBRE)
         {
             posicionLibre=i;
             break;
@@ -24,52 +24,52 @@ int BuscarLibre(eEmpleado lista[],int tam)
     return posicionLibre;//si devuelve -1 no se encontro posicion libre
 }
 
-eEmpleado CrearUnEmpleado(int id)
+Employee makeEmployee(int id)
 {
-    eEmpleado empleadoACrear;
+	Employee empleadoACrear;
     empleadoACrear.id=id+1;
     printf("Ingrese nombre del Empleado: ");
     fflush(stdin);
-    gets(empleadoACrear.nombre);
+    gets(empleadoACrear.name);
     printf("Ingrese apellido del Empleado: ");
     fflush(stdin);
-    gets(empleadoACrear.apellido);
+    gets(empleadoACrear.lastName);
     printf("Ingrese salario del Empleado: ");
-    scanf("%f",&empleadoACrear.salario);
+    scanf("%f",&empleadoACrear.salary);
     empleadoACrear.sector=TomarEntero("Ingrese sector del Empleado: ");
-    empleadoACrear.estado=OCUPADO;
+    empleadoACrear.isEmpty=OCUPADO;
 
     return empleadoACrear;
 
 }
 
-void DarDeAltaEmpleado(eEmpleado lista[],int tam)
+void addEmployees(Employee list[],int tam)
 {
     int posicion;
-    posicion=BuscarLibre(lista,tam);
+    posicion=BuscarLibre(list,tam);
     if(posicion!=-1)
     {
-        lista[posicion]=CrearUnEmpleado(posicion);
+    	list[posicion]=makeEmployee(posicion);
     }else
     {
         printf("No quedan espacio libres");
     }
 }
 
-void MostrarEmpleados(eEmpleado lista[],int tam)
+void MostrarEmpleados(Employee list[],int tam)
 {
     int i;
     printf("%8s %10s %10s %10s %10s\n","ID","Nombre","Apellido","Salario","Sector");
     for(i=0;i<tam;i++)
     {
-        if(lista[i].estado==1)
+        if(list[i].isEmpty==1)
         {
             printf("%8d %10s %10s %10.2f %8d\n",
-                   lista[i].id,
-                   lista[i].nombre,
-                   lista[i].apellido,
-                   lista[i].salario,
-                   lista[i].sector);
+            		list[i].id,
+					list[i].name,
+					list[i].lastName,
+					list[i].salary,
+					list[i].sector);
         }
     }
 }
@@ -86,7 +86,7 @@ int TomarEntero(char mensaje[])
     return valor;
 }
 
-void ModificarEmpleado(eEmpleado lista[],int tam)
+void ModificarEmpleado(Employee list[],int tam)
 {
     int EmpleadoAModificar;
     int CampoAModificar;
@@ -98,14 +98,14 @@ void ModificarEmpleado(eEmpleado lista[],int tam)
     int confirmacion;
     confirmacion=0;
 
-    MostrarEmpleados(lista,tam);
+    MostrarEmpleados(list,tam);
     EmpleadoAModificar=TomarEntero("Ingrese el Id del empleado a Modificar ");
     CampoAModificar=TomarEntero("Que campo desea modificar?\n1.Nombre\n2.Apellido\n3.Salario\n4.Sector\n");
 
     for(i=0;i<tam;i++)
     {
 
-        if(lista[i].estado==OCUPADO&&lista[i].id==EmpleadoAModificar)
+        if(list[i].isEmpty==OCUPADO&&list[i].id==EmpleadoAModificar)
         {
             switch(CampoAModificar)
             {
@@ -117,7 +117,7 @@ void ModificarEmpleado(eEmpleado lista[],int tam)
                     confirmacion=TomarEntero("Esta seguro?\n1.si\n2.no\n");
                     if(confirmacion==1)
                     {
-                        strcpy(lista[i].nombre,auxNombre);
+                        strcpy(list[i].name,auxNombre);
                     }
                 }break;
                 case 2:
@@ -128,7 +128,7 @@ void ModificarEmpleado(eEmpleado lista[],int tam)
                     confirmacion=TomarEntero("Esta seguro?\n1.si\n2.no\n");
                     if(confirmacion==1)
                     {
-                        strcpy(lista[i].apellido,auxApellido);
+                        strcpy(list[i].lastName,auxApellido);
                     }
                 }break;
                 case 3:
@@ -138,7 +138,7 @@ void ModificarEmpleado(eEmpleado lista[],int tam)
                     confirmacion=TomarEntero("Esta seguro?\n1.si\n2.no\n");
                     if(confirmacion==1)
                     {
-                        lista[i].salario=auxSalario;
+                    	list[i].salary=auxSalario;
                     }
                 }break;
                 case 4:
@@ -148,7 +148,7 @@ void ModificarEmpleado(eEmpleado lista[],int tam)
                     confirmacion=TomarEntero("Esta seguro?\n1.si\n2.no\n");
                     if(confirmacion==1)
                     {
-                        lista[i].sector=auxSector;
+                    	list[i].sector=auxSector;
                     }
                 }break;
             }
@@ -161,32 +161,32 @@ void ModificarEmpleado(eEmpleado lista[],int tam)
 
 }
 
-void DarDeBajaUnEmpleado(eEmpleado lista[],int tam)
+void DarDeBajaUnEmpleado(Employee list[],int tam)
 {
     int i;
     int idABorrar;
     int confirmacion;
     confirmacion=0;
-    MostrarEmpleados(lista,tam);
+    MostrarEmpleados(list,tam);
     idABorrar=TomarEntero("Ingrese el Id del empleado a Eliminar ");
 
     for(i=0;i<tam;i++)
     {
-        if(lista[i].estado==OCUPADO&&lista[i].id==idABorrar)
+        if(list[i].isEmpty==OCUPADO&&list[i].id==idABorrar)
         {
             confirmacion=TomarEntero("Esta seguro de que desea Eliminarlo?\n1.si\n2.no\n");
             if(confirmacion==1)
             {
-                lista[i].estado=BORRADO;
+            	list[i].isEmpty=BORRADO;
             }
         }
     }
 
 }
 
-void OrdenarPorApellidoYSector(eEmpleado lista[],int tam)
+void OrdenarPorApellidoYSector(Employee list[],int tam)
 {
-    eEmpleado auxEmpleado;
+	Employee auxEmpleado;
     int i;
     int j;
 
@@ -194,20 +194,20 @@ void OrdenarPorApellidoYSector(eEmpleado lista[],int tam)
     {
         for(j=i+1;j<tam;j++)
         {
-            if(strcmp(lista[i].apellido,lista[j].apellido)<0)
+            if(strcmp(list[i].lastName,list[j].lastName)<0)
             {
-                auxEmpleado = lista[i];
-                lista[i] = lista[j];
-                lista[j] = auxEmpleado;
+                auxEmpleado = list[i];
+                list[i] = list[j];
+                list[j] = auxEmpleado;
             }else
             {
-                if(strcmp(lista[i].apellido,lista[j].apellido)==0)
+                if(strcmp(list[i].lastName,list[j].lastName)==0)
                 {
-                    if(lista[i].sector>lista[j].sector)
+                    if(list[i].sector>list[j].sector)
                     {
-                        auxEmpleado = lista[i];
-                        lista[i] = lista[j];
-                        lista[j] = auxEmpleado;
+                        auxEmpleado = list[i];
+                        list[i] = list[j];
+                        list[j] = auxEmpleado;
                     }
                 }
             }
@@ -216,34 +216,34 @@ void OrdenarPorApellidoYSector(eEmpleado lista[],int tam)
     }
 }
 
-float TotalDeSalarios(eEmpleado lista[],int tam)
+float TotalDeSalarios(Employee list[],int tam)
 {
     int i;
     float acumulador;
     acumulador=0;
     for(i=0;i<tam;i++)
     {
-        if(lista[i].estado==OCUPADO)
+        if(list[i].isEmpty==OCUPADO)
         {
-            acumulador=acumulador+lista[i].salario;
+            acumulador=acumulador+list[i].salary;
         }
 
     }
     return acumulador;
 }
 
-float PromedioDeSalarios(eEmpleado lista[],int tam)
+float PromedioDeSalarios(Employee list[],int tam)
 {
     float total;
     int i;
     int contadorDeSalarios;
     float promedioDeSalarios;
     contadorDeSalarios=0;
-    total=TotalDeSalarios(lista,tam);
+    total=TotalDeSalarios(list,tam);
 
     for(i=0;i<tam;i++)
     {
-        if(lista[i].estado==OCUPADO)
+        if(list[i].isEmpty==OCUPADO)
         {
             contadorDeSalarios++;
         }
@@ -252,19 +252,19 @@ float PromedioDeSalarios(eEmpleado lista[],int tam)
     return promedioDeSalarios;
 }
 
-int SalariosPorEncimaDelPromedio(eEmpleado lista[],int tam)
+int SalariosPorEncimaDelPromedio(Employee list[],int tam)
 {
     int i;
     int cont;
     float promedio;
     cont=0;
-    promedio=PromedioDeSalarios(lista,tam);
+    promedio=PromedioDeSalarios(list,tam);
 
     for(i=0;i<tam;i++)
     {
-        if(lista[i].estado==OCUPADO)
+        if(list[i].isEmpty==OCUPADO)
         {
-            if(lista[i].salario>promedio)
+            if(list[i].salary>promedio)
             {
                 cont++;
             }
@@ -273,19 +273,19 @@ int SalariosPorEncimaDelPromedio(eEmpleado lista[],int tam)
     return cont;
 }
 
-void PuntoCuatro(eEmpleado lista[],int tam)
+void PuntoCuatro(Employee list[],int tam)
 {
 
     float totalDeTodosSalarios;
     float promedioDeTodosLosSalarios;
     int CantidadDeSalariosPorEncimaDelPromedio;
 
-    OrdenarPorApellidoYSector(lista,tam);
-    MostrarEmpleados(lista,tam);
+    OrdenarPorApellidoYSector(list,tam);
+    MostrarEmpleados(list,tam);
 
-    totalDeTodosSalarios=TotalDeSalarios(lista,tam);
-    promedioDeTodosLosSalarios=PromedioDeSalarios(lista,tam);
-    CantidadDeSalariosPorEncimaDelPromedio=SalariosPorEncimaDelPromedio(lista,tam);
+    totalDeTodosSalarios=TotalDeSalarios(list,tam);
+    promedioDeTodosLosSalarios=PromedioDeSalarios(list,tam);
+    CantidadDeSalariosPorEncimaDelPromedio=SalariosPorEncimaDelPromedio(list,tam);
     printf("El Total de todos los salarios es: %.2f \n",totalDeTodosSalarios);
     printf("El Promedio entre todos los salarios es: %.2f \n",promedioDeTodosLosSalarios);
     printf("La Cantidad de salarios por encima del promedio son: %d \n",CantidadDeSalariosPorEncimaDelPromedio);

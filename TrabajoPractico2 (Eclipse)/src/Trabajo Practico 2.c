@@ -13,11 +13,11 @@
 #define T 1000
 int main()
 {
-    eEmpleado ListaDeEmpleados[T];
+	Employee list[T];
 
-    InicializarEmpleados(ListaDeEmpleados,T);
+	InitEmployees(list,T);
 
-    menu(ListaDeEmpleados,T);
+    menu(list,T);
 
     return 0;
 }
