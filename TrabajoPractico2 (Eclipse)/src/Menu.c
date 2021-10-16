@@ -4,6 +4,7 @@ void menu(Employee list[],int tam)
 {
 	setbuf(stdout,NULL);
     int opcion;
+    int nextId=1000;
     int control;
     control=1;
     do
@@ -18,7 +19,7 @@ void menu(Employee list[],int tam)
         {
             case 1:
                 {
-                	addEmployees(list,tam);
+                	addEmployees(list,tam,&nextId);
                     control=0;
                 }break;
             case 2:
@@ -35,7 +36,7 @@ void menu(Employee list[],int tam)
                 {
                     if(control==0)
                     {
-                        DarDeBajaUnEmpleado(list, tam);
+                    	removeEmployee(list, tam);
                     }else
                     {
                         MensajeError();

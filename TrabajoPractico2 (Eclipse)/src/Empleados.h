@@ -30,14 +30,14 @@ int BuscarLibre(Employee list[],int tam);
  *
  */
 
-Employee makeEmployee(int id);
+Employee makeEmployee(int* id);
 /** \brief Pide al usuario el ingreso de todos los parametros de un Empleado menos el id y los cargar y devuelve un Employee
  *
  * \param id int
  * \return empleadoACrear Employee
  *
  */
-void addEmployees(Employee list[],int tam);
+void addEmployees(Employee list[],int tam,int* pId);
 /** \brief Se fija si hay posiciones en "LIBRE" y llama a CrearUnEmpleado si estan todos en "OCUPADO"
  * o "BORRADO" se informa que no queda espacio
  *
@@ -46,7 +46,7 @@ void addEmployees(Employee list[],int tam);
  * \return void
  *
  */
-void MostrarEmpleados(Employee list[],int tam);
+void printEmployees(Employee list[],int tam);
 /** \brief Muestra en formato matriz todos los parametros de los empleados con estado "OCUPADO"
  *
  * \param list[] Employee
@@ -78,7 +78,7 @@ void ModificarEmpleado(Employee list[],int tam);
  * \return void
  *
  */
-void DarDeBajaUnEmpleado(Employee list[],int tam);
+void removeEmployee(Employee list[],int tam);
 /** Muestra los empleados cargados, le pide al usuario ingresar el Id para ELIMINAR, luego pide confirmacion
  * de ser otorgada cambia el estado de ese Empleado a BORRADO
  *
@@ -87,7 +87,7 @@ void DarDeBajaUnEmpleado(Employee list[],int tam);
  * \return void
  *
  */
-void OrdenarPorApellidoYSector(Employee list[],int tam);
+void sortEmployees(Employee list[],int tam);
 /** Recorre el array comparando apellidos ordenando de 'a' a la 'z' y si hay 2 apellidos iguales ordena por
  * sector de menor a mayor
  *

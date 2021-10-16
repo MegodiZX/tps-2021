@@ -24,10 +24,10 @@ int BuscarLibre(Employee list[],int tam)
     return posicionLibre;//si devuelve -1 no se encontro posicion libre
 }
 
-Employee makeEmployee(int id)
+Employee makeEmployee(int* id)
 {
 	Employee empleadoACrear;
-    empleadoACrear.id=id+1;
+    empleadoACrear.id=*id;
     printf("Ingrese nombre del Empleado: ");
     fflush(stdin);
     gets(empleadoACrear.name);
@@ -38,25 +38,26 @@ Employee makeEmployee(int id)
     scanf("%f",&empleadoACrear.salary);
     empleadoACrear.sector=TomarEntero("Ingrese sector del Empleado: ");
     empleadoACrear.isEmpty=OCUPADO;
+    (*id)++;
 
     return empleadoACrear;
 
 }
 
-void addEmployees(Employee list[],int tam)
+void addEmployees(Employee list[],int tam,int* pId)
 {
     int posicion;
     posicion=BuscarLibre(list,tam);
     if(posicion!=-1)
     {
-    	list[posicion]=makeEmployee(posicion);
+    	list[posicion]=makeEmployee(pId);
     }else
     {
         printf("No quedan espacio libres");
     }
 }
 
-void MostrarEmpleados(Employee list[],int tam)
+void printEmployees(Employee list[],int tam)
 {
     int i;
     printf("%8s %10s %10s %10s %10s\n","ID","Nombre","Apellido","Salario","Sector");
@@ -98,7 +99,7 @@ void ModificarEmpleado(Employee list[],int tam)
     int confirmacion;
     confirmacion=0;
 
-    MostrarEmpleados(list,tam);
+    printEmployees(list,tam);
     EmpleadoAModificar=TomarEntero("Ingrese el Id del empleado a Modificar ");
     CampoAModificar=TomarEntero("Que campo desea modificar?\n1.Nombre\n2.Apellido\n3.Salario\n4.Sector\n");
 
@@ -161,13 +162,13 @@ void ModificarEmpleado(Employee list[],int tam)
 
 }
 
-void DarDeBajaUnEmpleado(Employee list[],int tam)
+void removeEmployee(Employee list[],int tam)
 {
     int i;
     int idABorrar;
     int confirmacion;
     confirmacion=0;
-    MostrarEmpleados(list,tam);
+    printEmployees(list,tam);
     idABorrar=TomarEntero("Ingrese el Id del empleado a Eliminar ");
 
     for(i=0;i<tam;i++)
@@ -184,7 +185,7 @@ void DarDeBajaUnEmpleado(Employee list[],int tam)
 
 }
 
-void OrdenarPorApellidoYSector(Employee list[],int tam)
+void sortEmployees(Employee list[],int tam)
 {
 	Employee auxEmpleado;
     int i;
@@ -194,7 +195,7 @@ void OrdenarPorApellidoYSector(Employee list[],int tam)
     {
         for(j=i+1;j<tam;j++)
         {
-            if(strcmp(list[i].lastName,list[j].lastName)<0)
+            if(strcmp(list[i].lastName,list[j].lastName)>0)
             {
                 auxEmpleado = list[i];
                 list[i] = list[j];
@@ -280,8 +281,8 @@ void PuntoCuatro(Employee list[],int tam)
     float promedioDeTodosLosSalarios;
     int CantidadDeSalariosPorEncimaDelPromedio;
 
-    OrdenarPorApellidoYSector(list,tam);
-    MostrarEmpleados(list,tam);
+    sortEmployees(list,tam);
+    printEmployees(list,tam);
 
     totalDeTodosSalarios=TotalDeSalarios(list,tam);
     promedioDeTodosLosSalarios=PromedioDeSalarios(list,tam);
